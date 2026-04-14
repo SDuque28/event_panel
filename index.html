@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EventRadar · Panel de Eventos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ── HEADER ─────────────────────────────────────────────────────── -->
+<header>
+  <div class="logo">
+    <h1>Event<span>Radar</span></h1>
+  </div>
+  <div id="location-bar">
+    <div class="dot" id="loc-dot"></div>
+    <span id="loc-text">Obteniendo ubicación…</span>
+  </div>
+</header>
+
+<!-- ── STATS ROW ──────────────────────────────────────────────────── -->
+<div class="stats-row">
+  <div class="stat-card">
+    <div>
+      <div class="stat-val" id="stat-total">0</div>
+      <div class="stat-label">Eventos totales</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div>
+      <div class="stat-val" id="stat-int">0</div>
+      <div class="stat-label">Me interesa</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div>
+      <div class="stat-val" id="stat-urg">0</div>
+      <div class="stat-label">Urgentes</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div>
+      <div class="stat-val" id="stat-top">—</div>
+      <div class="stat-label">Categoría top</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── DASHBOARD ──────────────────────────────────────────────────── -->
+<div class="dashboard">
+
+  <!-- COLUMNA EVENTOS -->
+  <div class="col-eventos">
+    <div class="col-header">
+      <div class="col-title">Eventos Cercanos</div>
+      <span class="count-badge" id="badge-eventos">0</span>
+    </div>
+    <div class="sort-bar">
+      <button class="sort-btn active" data-sort="score">Score ↓</button>
+      <button class="sort-btn" data-sort="fecha">Fecha</button>
+      <button class="sort-btn" data-sort="nombre">A-Z</button>
+    </div>
+    <div class="drop-zone" id="zone-eventos">
+      <div class="empty-state">
+        <span>Cargando eventos…</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- COLUMNA ME INTERESA -->
+  <div class="col-interesados">
+    <div class="col-header">
+      <div class="col-title">Me Interesa</div>
+      <span class="count-badge" id="badge-interesa">0</span>
+    </div>
+    <p class="hint-text">Arrastra eventos aquí para guardarlos</p>
+    <div class="drop-zone" id="zone-interesa">
+      <div class="empty-state">
+        <span>Arrastra eventos que te interesen</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+
+    <!-- CANVAS RADAR -->
+    <div class="panel-box">
+      <h3>Radar Visual</h3>
+      <canvas id="radar-canvas" width="260" height="200"></canvas>
+    </div>
+
+    <!-- FILTROS -->
+    <div class="panel-box">
+      <h3>Filtrar por categoría</h3>
+      <div class="filter-tags" id="filter-tags"></div>
+    </div>
+
+    <!-- ACCIONES -->
+    <div class="panel-box">
+      <h3>Acciones rápidas</h3>
+      <div class="actions-col">
+        <button class="btn-action blue" onclick="recargarEventos()">Recargar eventos</button>
+        <button class="btn-action red"  onclick="limpiarInteresados()">Limpiar interesados</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
