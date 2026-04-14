@@ -1,321 +1,281 @@
-/* ── BASIC ACADEMIC THEME ────────────────────────────────────── */
+/* ── STUDENT VERY BASIC HTML/CSS ────────────────────────────────────── */
 
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f6f9;
-  color: #333;
-  margin: 0;
+  font-family: "Times New Roman", Times, serif;
+  background-color: #ffffff;
+  color: #000000;
+  margin: 10px;
   padding: 0;
 }
 
 header {
-  background-color: #2c3e50;
-  color: #fff;
-  padding: 15px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 4px solid #1a252f;
+  border-bottom: 2px solid #000;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 header h1 {
   margin: 0;
-  font-size: 24px;
+  font-size: 2em;
 }
 
 header h1 span {
-  color: #3498db;
+  font-weight: normal;
 }
 
 #location-bar {
-  background: #ecf0f1;
-  color: #2c3e50;
-  padding: 6px 12px;
-  border-radius: 4px;
+  margin-top: 10px;
   font-size: 14px;
-  border: 1px solid #bdc3c7;
 }
 
 #location-bar .dot {
   display: inline-block;
   width: 10px;
   height: 10px;
-  background-color: #e74c3c;
-  border-radius: 50%;
-  margin-right: 5px;
+  background-color: red;
+  border: 1px solid black;
 }
 
 #location-bar .dot.active {
-  background-color: #2ecc71;
+  background-color: green;
 }
 
 .stats-row {
-  display: flex;
-  gap: 15px;
-  padding: 20px;
-  background-color: #fff;
-  border-bottom: 1px solid #e0e0e0;
+  border: 1px dotted #000;
+  padding: 10px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
 }
 
 .stat-card {
-  background: #fdfdfd;
-  border: 1px solid #dcdde1;
-  border-radius: 4px;
-  padding: 15px;
-  flex: 1;
-  text-align: center;
+  display: inline-block;
+  width: 22%;
+  margin-right: 1%;
+  border: 1px solid #000;
+  padding: 10px;
+  background: #fff;
+  vertical-align: top;
 }
 
 .stat-val {
-  font-size: 28px;
+  font-size: 20px;
   font-weight: bold;
-  color: #2c3e50;
 }
 
 .stat-label {
   font-size: 14px;
-  color: #7f8c8d;
 }
 
 .dashboard {
-  display: flex;
-  gap: 20px;
-  padding: 20px;
-  flex-wrap: wrap;
+  width: 100%;
 }
 
-.col-eventos, .col-interesados, .right-panel {
-  flex: 1;
-  min-width: 300px;
-  background: #fff;
-  border: 1px solid #dcdde1;
-  border-radius: 4px;
-  padding: 15px;
+.col-eventos {
+  float: left;
+  width: 31%;
+  border: 2px solid #000;
+  padding: 10px;
+  margin-right: 1%;
+  background-color: #f9f9f9;
+}
+
+.col-interesados {
+  float: left;
+  width: 31%;
+  border: 2px solid #000;
+  padding: 10px;
+  margin-right: 1%;
+  background-color: #f9f9f9;
+}
+
+.right-panel {
+  float: left;
+  width: 31%;
+  border: 2px solid #000;
+  padding: 10px;
+  background-color: #f9f9f9;
+}
+
+.dashboard::after {
+  content: "";
+  clear: both;
+  display: table;
 }
 
 .col-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 2px solid #eee;
-  padding-bottom: 10px;
-  margin-bottom: 15px;
+  border-bottom: 1px solid #000;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 .col-title {
   font-size: 18px;
   font-weight: bold;
+  display: inline-block;
 }
 
 .count-badge {
-  background: #3498db;
-  color: #fff;
-  padding: 3px 8px;
-  border-radius: 12px;
+  background: #ccc;
+  border: 1px solid #000;
+  padding: 2px 5px;
   font-size: 12px;
 }
 
 .sort-bar {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .sort-btn {
-  background: #ecf0f1;
-  border: 1px solid #bdc3c7;
-  padding: 6px 12px;
+  background: #e0e0e0;
+  border: 1px solid #000;
   margin-right: 5px;
   cursor: pointer;
-  border-radius: 4px;
-  color: #333;
+  padding: 2px 5px;
 }
 
 .sort-btn.active {
-  background: #3498db;
-  color: #fff;
-  border-color: #2980b9;
+  font-weight: bold;
+  background: #bbb;
 }
 
 .drop-zone {
-  min-height: 400px;
-  border: 2px dashed #bdc3c7;
-  border-radius: 4px;
+  min-height: 300px;
+  border: 1px dashed #000;
   padding: 10px;
-  background-color: #fafbfc;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  margin-top: 10px;
+  background-color: #fff;
 }
 
 .drop-zone.drag-over {
-  background-color: #e8f4f8;
-  border-color: #3498db;
+  background-color: #e0ffe0;
 }
 
 .empty-state {
-  margin: auto;
-  color: #95a5a6;
-  text-align: center;
+  color: #000;
   font-style: italic;
+  margin-top: 20px;
 }
 
 /* CARDS */
 .event-card {
-  background: #fff;
-  border: 1px solid #dcdde1;
-  border-left: 5px solid #34495e;
-  border-radius: 4px;
-  padding: 12px;
+  border: 1px solid #000;
+  padding: 10px;
+  margin-bottom: 10px;
   cursor: grab;
-  position: relative;
+  background: #fff;
 }
 
 .event-card.dragging {
-  opacity: 0.5;
+  background-color: #dddddd;
 }
 
 .card-top {
-  display: flex;
-  justify-content: space-between;
+  border-bottom: 1px dotted #000;
+  padding-bottom: 5px;
   margin-bottom: 5px;
 }
 
 .card-category {
-  background: #ecf0f1;
-  color: #2c3e50;
-  padding: 3px 6px;
-  border-radius: 3px;
+  font-weight: bold;
   font-size: 12px;
-  text-transform: uppercase;
+  text-decoration: underline;
 }
 
 .card-score {
   font-size: 12px;
-  color: #7f8c8d;
+  float: right;
 }
 
 .card-title {
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 5px;
+  color: #0000ee;
 }
 
 .card-desc {
-  font-size: 13px;
-  color: #555;
+  font-size: 14px;
   margin-bottom: 10px;
 }
 
 .card-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   font-size: 12px;
-  color: #7f8c8d;
-  border-top: 1px solid #eee;
-  padding-top: 8px;
+  border-top: 1px dotted #000;
+  padding-top: 5px;
 }
-
-.time-badge {
-  padding: 3px 6px;
-  border-radius: 3px;
-}
-
-.time-urgente { background: #e74c3c; color: white; }
-.time-pronto { background: #f39c12; color: white; }
-.time-normal { background: #95a5a6; color: white; }
 
 .btn-remove {
-  background: #e74c3c;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  width: 24px;
-  height: 24px;
+  background: #fff;
+  border: 1px solid red;
+  color: red;
   cursor: pointer;
-  font-size: 12px;
-  padding: 0;
+  float: right;
+  padding: 2px 5px;
 }
 
 .card-drag-hint {
   display: none;
 }
 
-/* CATEGORY BORDERS */
-.cat-tech { border-left-color: #3498db; }
-.cat-cultura { border-left-color: #9b59b6; }
-.cat-deporte { border-left-color: #2ecc71; }
-.cat-musica { border-left-color: #e74c3c; }
-.cat-arte { border-left-color: #e67e22; }
-.cat-negocios { border-left-color: #f1c40f; }
-
 /* RIGHT PANEL */
 .panel-box {
   margin-bottom: 20px;
+  border: 1px solid #000;
+  padding: 10px;
+  background: #fff;
 }
 
 .panel-box h3 {
-  font-size: 16px;
   margin-top: 0;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 5px;
+  border-bottom: 1px solid #000;
+  font-size: 16px;
 }
 
 .filter-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
+  margin-top: 10px;
 }
 
 .filter-tag {
-  background: #ecf0f1;
-  border: 1px solid #bdc3c7;
-  padding: 6px 12px;
-  border-radius: 15px;
+  background: #eee;
+  border: 1px solid #000;
+  padding: 2px 5px;
+  margin: 2px;
   cursor: pointer;
-  font-size: 13px;
+  display: inline-block;
+  font-size: 12px;
 }
 
 .filter-tag.active {
-  background: #3498db;
-  color: white;
-  border-color: #2980b9;
+  background: #000;
+  color: #fff;
 }
 
 .actions-col {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  margin-top: 10px;
 }
 
 .btn-action {
-  padding: 10px;
-  border: none;
+  border: 1px solid #000;
+  padding: 5px;
   cursor: pointer;
-  border-radius: 4px;
-  font-weight: bold;
-}
-
-.btn-action.blue {
-  background-color: #3498db;
-  color: white;
-}
-
-.btn-action.red {
-  background-color: #e74c3c;
-  color: white;
+  background: #e0e0e0;
+  display: block;
+  width: 100%;
+  margin-bottom: 5px;
+  text-align: center;
 }
 
 #toast {
   position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #2c3e50;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 4px;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: yellow;
+  color: black;
+  border-top: 1px solid black;
+  text-align: center;
+  padding: 5px;
   display: none;
-  z-index: 1000;
 }
 
 #toast.show {
@@ -324,9 +284,8 @@ header h1 span {
 
 /* CANVAS */
 #radar-canvas {
-  background: #fafbfc;
-  border: 1px solid #dcdde1;
-  border-radius: 4px;
+  border: 1px solid #000;
+  background: #fff;
   width: 100%;
   height: 100%;
 }

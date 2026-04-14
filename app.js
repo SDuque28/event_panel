@@ -42,13 +42,7 @@ function calcularScore(ev) {
   return urgScore + cupoScore + localScore;
 }
 
-function getUrgencia(ev) {
-  const dias = Math.ceil((new Date(ev.fecha) - new Date()) / (1000*60*60*24));
-  if (dias <= 0) return { label: "Pasado",      cls: "time-normal"  };
-  if (dias <= 3) return { label: `${dias}d`, cls: "time-urgente" };
-  if (dias <= 7) return { label: `${dias}d`,    cls: "time-pronto"  };
-  return           { label: `${dias}d`,          cls: "time-normal"  };
-}
+
 
 /* ═══════════════════════════════════════════════════════════════
    ESTADO GLOBAL
@@ -79,7 +73,6 @@ function sortEventos(arr) {
 
 function renderCard(ev, enInteresa = false) {
   const score = calcularScore(ev);
-  const urg   = getUrgencia(ev);
   const div   = document.createElement('div');
   div.className  = `event-card cat-${ev.categoria}`;
   div.draggable  = true;
@@ -97,7 +90,6 @@ function renderCard(ev, enInteresa = false) {
     <div class="card-desc">${ev.desc}</div>
     <div class="card-footer">
       <span>📍 ${ev.lugar} · ${fecha}</span>
-      <span class="time-badge ${urg.cls}">${urg.label}</span>
       ${enInteresa ? `<button class="btn-remove" title="Quitar" onclick="quitarInteres(${ev.id})">✕</button>` : ''}
     </div>
   `;
@@ -139,12 +131,6 @@ function render() {
   document.getElementById('badge-interesa').textContent = intData.length;
   document.getElementById('stat-total').textContent     = EVENTOS_API.length;
   document.getElementById('stat-int').textContent       = interesados.length;
-
-  const urgentes = EVENTOS_API.filter(e => {
-    const d = Math.ceil((new Date(e.fecha) - new Date()) / 86400000);
-    return d > 0 && d <= 3;
-  });
-  document.getElementById('stat-urg').textContent = urgentes.length;
 
   const cats = {};
   intData.forEach(e => { cats[e.categoria] = (cats[e.categoria] || 0) + 1; });
@@ -207,10 +193,9 @@ function drawCanvas() {
   const W = canvas.width, H = canvas.height;
   ctx.clearRect(0, 0, W, H);
 
-  // Fondo claro
-  ctx.fillStyle = '#fafbfc';
-  ctx.roundRect(0, 0, W, H, 8);
-  ctx.fill();
+  // Fondo básico
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, W, H);
 
   const intData = EVENTOS_API.filter(e => interesados.includes(e.id));
   const cats    = {};
@@ -218,60 +203,36 @@ function drawCanvas() {
   const entries = Object.entries(cats);
 
   if (!entries.length) {
-    ctx.fillStyle = '#7f8c8d';
-    ctx.font      = '12px Arial, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('Sin datos aún', W/2, H/2 - 8);
-    ctx.font      = '10px Arial, sans-serif';
-    ctx.fillText('Agrega eventos a Me interesa', W/2, H/2 + 12);
+    ctx.fillStyle = '#000000';
+    ctx.font      = '12px serif';
+    ctx.fillText('Sin datos', 10, 20);
     return;
   }
 
-  const COLORS = {
-    tech:'#3498db', musica:'#e74c3c', arte:'#e67e22',
-    deporte:'#2ecc71', negocios:'#f1c40f', cultura:'#9b59b6'
-  };
-
   const total  = entries.reduce((s, [,v]) => s + v, 0);
   const maxVal = Math.max(...entries.map(([,v]) => v));
-  const barH = 24, gap = 10, padL = 70, padR = 46, padT = 16;
-  const maxW = W - padL - padR;
+  const barH = 20, gap = 5, padL = 70, padR = 40, padT = 10;
+  const maxW = W - padL - padR - 20;
 
   entries.sort((a,b) => b[1]-a[1]).forEach(([cat, val], i) => {
     const y     = padT + i * (barH + gap);
     const bw    = (val / maxVal) * maxW;
-    const color = COLORS[cat] || '#95a5a6';
 
-    // Barra de fondo
-    ctx.fillStyle = '#ecf0f1';
-    ctx.beginPath(); ctx.roundRect(padL, y, maxW, barH, 4); ctx.fill();
+    ctx.fillStyle = '#000000';
+    ctx.font      = '12px serif';
+    ctx.fillText(cat, 5, y + 15);
 
-    // Barra llena
-    ctx.fillStyle = color;
-    ctx.beginPath(); ctx.roundRect(padL, y, bw, barH, 4); ctx.fill();
+    ctx.fillStyle = '#cccccc';
+    ctx.fillRect(padL, y, bw, barH);
+    ctx.strokeRect(padL, y, bw, barH); // Borde negro
 
-    // Texto Categoría
-    ctx.fillStyle = '#2c3e50';
-    ctx.font      = '12px Arial, sans-serif';
-    ctx.textAlign = 'right';
-    ctx.fillText(cat, padL - 6, y + barH/2 + 4);
-
-    // Texto de cantidad (sobre la barra si hay espacio, o a la derecha)
-    ctx.fillStyle = '#fff';
-    ctx.font      = 'bold 12px Arial, sans-serif';
-    ctx.textAlign = 'left';
-    ctx.fillText(val, padL + 6, y + barH/2 + 4);
-
-    // Porcentaje a la derecha
-    ctx.fillStyle = '#7f8c8d';
-    ctx.font      = '10px Arial, sans-serif';
-    ctx.fillText(`${Math.round(val/total*100)}%`, padL + bw + 6, y + barH/2 + 4);
+    ctx.fillStyle = '#000000';
+    ctx.fillText(val + ' (' + Math.round(val/total*100) + '%)', padL + bw + 5, y + 15);
   });
 
-  ctx.fillStyle = '#2c3e50';
-  ctx.font      = 'bold 14px Arial, sans-serif';
-  ctx.textAlign = 'right';
-  ctx.fillText(`Total: ${total}`, W - 10, H - 10);
+  ctx.fillStyle = '#000000';
+  ctx.font      = 'bold 12px serif';
+  ctx.fillText('Total: ' + total, 10, H - 10);
 }
 
 /* ═══════════════════════════════════════════════════════════════
