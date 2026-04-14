@@ -202,11 +202,13 @@ function quitarInteres(id) {
 ═══════════════════════════════════════════════════════════════ */
 function drawCanvas() {
   const canvas = document.getElementById('radar-canvas');
+  if(!canvas) return;
   const ctx    = canvas.getContext('2d');
   const W = canvas.width, H = canvas.height;
   ctx.clearRect(0, 0, W, H);
 
-  ctx.fillStyle = '#080c14';
+  // Fondo claro
+  ctx.fillStyle = '#fafbfc';
   ctx.roundRect(0, 0, W, H, 8);
   ctx.fill();
 
@@ -216,19 +218,18 @@ function drawCanvas() {
   const entries = Object.entries(cats);
 
   if (!entries.length) {
-    ctx.fillStyle = '#334155';
-    ctx.font      = '12px Space Mono, monospace';
+    ctx.fillStyle = '#7f8c8d';
+    ctx.font      = '12px Arial, sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText('Sin datos aún', W/2, H/2 - 8);
-    ctx.fillStyle = '#1e293b';
-    ctx.font      = '10px Space Mono, monospace';
+    ctx.font      = '10px Arial, sans-serif';
     ctx.fillText('Agrega eventos a Me interesa', W/2, H/2 + 12);
     return;
   }
 
   const COLORS = {
-    tech:'#3b82f6', musica:'#f43f5e', arte:'#fb923c',
-    deporte:'#10b981', negocios:'#facc15', cultura:'#a78bfa'
+    tech:'#3498db', musica:'#e74c3c', arte:'#e67e22',
+    deporte:'#2ecc71', negocios:'#f1c40f', cultura:'#9b59b6'
   };
 
   const total  = entries.reduce((s, [,v]) => s + v, 0);
@@ -239,37 +240,36 @@ function drawCanvas() {
   entries.sort((a,b) => b[1]-a[1]).forEach(([cat, val], i) => {
     const y     = padT + i * (barH + gap);
     const bw    = (val / maxVal) * maxW;
-    const color = COLORS[cat] || '#64748b';
+    const color = COLORS[cat] || '#95a5a6';
 
-    ctx.fillStyle = 'rgba(255,255,255,0.04)';
+    // Barra de fondo
+    ctx.fillStyle = '#ecf0f1';
     ctx.beginPath(); ctx.roundRect(padL, y, maxW, barH, 4); ctx.fill();
 
-    const grad = ctx.createLinearGradient(padL, 0, padL + bw, 0);
-    grad.addColorStop(0, color + 'cc');
-    grad.addColorStop(1, color);
-    ctx.fillStyle   = grad;
-    ctx.shadowColor = color;
-    ctx.shadowBlur  = 8;
+    // Barra llena
+    ctx.fillStyle = color;
     ctx.beginPath(); ctx.roundRect(padL, y, bw, barH, 4); ctx.fill();
-    ctx.shadowBlur  = 0;
 
-    ctx.fillStyle = '#94a3b8';
-    ctx.font      = '10px Syne, sans-serif';
+    // Texto Categoría
+    ctx.fillStyle = '#2c3e50';
+    ctx.font      = '12px Arial, sans-serif';
     ctx.textAlign = 'right';
     ctx.fillText(cat, padL - 6, y + barH/2 + 4);
 
-    ctx.fillStyle = '#e2e8f0';
-    ctx.font      = 'bold 11px Space Mono, monospace';
+    // Texto de cantidad (sobre la barra si hay espacio, o a la derecha)
+    ctx.fillStyle = '#fff';
+    ctx.font      = 'bold 12px Arial, sans-serif';
     ctx.textAlign = 'left';
-    ctx.fillText(val, padL + bw + 6, y + barH/2 + 4);
+    ctx.fillText(val, padL + 6, y + barH/2 + 4);
 
-    ctx.fillStyle = '#475569';
-    ctx.font      = '9px Space Mono, monospace';
-    ctx.fillText(`${Math.round(val/total*100)}%`, padL + bw + 6, y + barH/2 + 15);
+    // Porcentaje a la derecha
+    ctx.fillStyle = '#7f8c8d';
+    ctx.font      = '10px Arial, sans-serif';
+    ctx.fillText(`${Math.round(val/total*100)}%`, padL + bw + 6, y + barH/2 + 4);
   });
 
-  ctx.fillStyle = '#f97316';
-  ctx.font      = 'bold 13px Space Mono, monospace';
+  ctx.fillStyle = '#2c3e50';
+  ctx.font      = 'bold 14px Arial, sans-serif';
   ctx.textAlign = 'right';
   ctx.fillText(`Total: ${total}`, W - 10, H - 10);
 }
